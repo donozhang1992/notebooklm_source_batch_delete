@@ -3,6 +3,12 @@
   "name": "NotebookLM Source Bulk Delete",
   "version": "0.1.0",
   "description": "Delete multiple visible sources from the current NotebookLM notebook.",
+  "icons": {
+    "16": "assets/icons/icon-16.png",
+    "32": "assets/icons/icon-32.png",
+    "48": "assets/icons/icon-48.png",
+    "128": "assets/icons/icon-128.png"
+  },
   "permissions": [],
   "host_permissions": ["https://notebooklm.google.com/*"],
   "content_scripts": [
