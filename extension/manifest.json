@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "NotebookLM Source Bulk Delete",
+  "version": "0.1.0",
+  "description": "Delete multiple visible sources from the current NotebookLM notebook.",
+  "permissions": [],
+  "host_permissions": ["https://notebooklm.google.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://notebooklm.google.com/*"],
+      "js": ["dist/content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

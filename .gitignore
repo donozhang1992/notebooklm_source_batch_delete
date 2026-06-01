@@ -1,0 +1,10 @@
+node_modules/
+extension/dist/
+playwright-report/
+test-results/
+coverage/
+.vitest/
+*.log
+.codex/
+handoffs/
+

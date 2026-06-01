@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>NotebookLM Source Fixture</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 24px;
+      }
+
+      aside[aria-label="Sources"] {
+        width: 360px;
+        border: 1px solid #d0d7de;
+        padding: 12px;
+      }
+
+      [role="listitem"] {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 36px;
+        border-bottom: 1px solid #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <aside aria-label="Sources">
+        <div role="list">
+          <div role="listitem" data-source-id="source-1">
+            <span>Alpha research page</span>
+            <button aria-label="More options">...</button>
+          </div>
+          <div role="listitem" data-source-id="source-2">
+            <span>Beta PDF notes</span>
+            <button aria-label="More options">...</button>
+          </div>
+          <div role="listitem" data-source-id="source-3">
+            <span>Gamma YouTube transcript</span>
+            <button aria-label="More options">...</button>
+          </div>
+        </div>
+      </aside>
+    </main>
+    <script>
+      document.addEventListener("click", (event) => {
+        if (event.target.matches("button[aria-label='More options']")) {
+          document.querySelector("[data-fixture-menu]")?.remove();
+          const menu = document.createElement("div");
+          menu.setAttribute("role", "menu");
+          menu.dataset.fixtureMenu = "true";
+          menu.sourceRow = event.target.closest("[role='listitem']");
+          const item = document.createElement("button");
+          item.type = "button";
+          item.textContent = "Delete";
+          item.dataset.fixtureDelete = "true";
+          menu.append(item);
+          document.body.append(menu);
+        }
+
+        if (event.target.matches("[data-fixture-delete]")) {
+          document.querySelector("[data-fixture-confirm]")?.remove();
+          const confirm = document.createElement("button");
+          confirm.type = "button";
+          confirm.textContent = "Delete";
+          confirm.dataset.fixtureConfirm = "true";
+          confirm.sourceRow = document.querySelector("[data-fixture-menu]")?.sourceRow;
+          document.body.append(confirm);
+        }
+
+        if (event.target.matches("[data-fixture-confirm]")) {
+          event.target.sourceRow?.remove();
+          document.querySelector("[data-fixture-menu]")?.remove();
+          event.target.remove();
+        }
+      });
+    </script>
+  </body>
+</html>
+
