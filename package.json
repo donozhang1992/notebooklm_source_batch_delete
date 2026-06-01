@@ -19,7 +19,8 @@
     "test:watch": "vitest",
     "test:e2e": "npm run build && playwright test",
     "test:all": "npm run test && npm run test:e2e",
-    "package:extension": "npm run build && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-extension.ps1"
+    "package:extension": "npm run build && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-extension.ps1",
+    "screenshots:store": "npm run build && node scripts/create-store-screenshots.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.44.0",
