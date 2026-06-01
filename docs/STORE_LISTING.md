@@ -36,6 +36,55 @@ Productivity
 
 English
 
+Use `English (United States)` if the store asks for a locale.
+
+## Icon
+
+Use the packaged extension icon:
+
+```text
+extension/assets/icons/icon-128.png
+```
+
+The manifest includes all required extension icon sizes:
+
+```text
+extension/assets/icons/icon-16.png
+extension/assets/icons/icon-32.png
+extension/assets/icons/icon-48.png
+extension/assets/icons/icon-128.png
+```
+
+For the store listing icon, upload the 128x128 icon unless the store specifically asks for a different promotional image size.
+
+## Screenshots / Demo Assets
+
+Use:
+
+```text
+docs/assets/topbar.png
+docs/assets/before.gif
+docs/assets/after.gif
+```
+
+If the store requires static screenshots instead of GIFs, use `topbar.png` plus still frames exported from the GIFs.
+
+## Release Package
+
+Build the extension package:
+
+```powershell
+npm run package:extension
+```
+
+Upload:
+
+```text
+release/notebooklm-source-bulk-delete-0.1.0.zip
+```
+
+The zip root contains `manifest.json`, `content.css`, `dist/content.js`, and packaged icons.
+
 ## Permission Justification
 
 Host permission:
@@ -63,4 +112,3 @@ It reads the current NotebookLM page DOM locally in order to find source rows, s
 5. Click `Delete`.
 6. Confirm the listed source names.
 7. Verify the selected sources are removed and the summary is shown.
-
