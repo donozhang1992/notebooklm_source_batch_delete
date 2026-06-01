@@ -128,6 +128,18 @@ Build the extension content bundle:
 npm run build
 ```
 
+## Release Package
+
+Build the extension, then zip the contents of the `extension` folder. The zip root must contain `manifest.json`.
+
+On Windows PowerShell:
+
+```powershell
+npm run package:extension
+```
+
+Upload `release/notebooklm-source-bulk-delete-0.1.0.zip` to the Chrome Web Store Developer Dashboard or Microsoft Partner Center.
+
 ## Privacy
 
 See [PRIVACY.md](./PRIVACY.md).
