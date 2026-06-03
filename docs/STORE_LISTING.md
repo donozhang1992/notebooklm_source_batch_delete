@@ -99,7 +99,7 @@ npm run package:extension
 Upload:
 
 ```text
-release/notebooklm-source-bulk-delete-0.1.0.zip
+release/notebooklm-source-bulk-delete-0.1.1.zip
 ```
 
 The zip root contains `manifest.json`, `content.css`, `dist/content.js`, and packaged icons.

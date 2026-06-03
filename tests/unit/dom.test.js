@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { findRowMenuButton, findSourcePanel, findSourceRows, getSourceTitle } from "../../extension/src/dom.js";
+import { findMenuItem, findRowMenuButton, findSourcePanel, findSourceRows, getSourceTitle } from "../../extension/src/dom.js";
 
 describe("dom helpers", () => {
   it("finds the NotebookLM source panel", () => {
@@ -128,6 +128,58 @@ describe("dom helpers", () => {
     `;
 
     expect(findRowMenuButton(document.querySelector("[role='listitem']"))?.tagName).toBe("BUTTON");
+  });
+
+  it("targets NotebookLM source item menu buttons instead of source open buttons", () => {
+    document.body.innerHTML = `
+      <div class="source-entry">
+        <button class="source-stretched-button" aria-label="Alpha title"></button>
+        <button class="source-item-more-button mat-mdc-menu-trigger" aria-label="More">more_vert</button>
+        <input type="checkbox" class="mdc-checkbox__native-control mdc-checkbox--selected" aria-label="Alpha title" checked>
+      </div>
+    `;
+
+    const menuButton = findRowMenuButton(document.querySelector(".source-entry"));
+
+    expect(menuButton).not.toBeNull();
+    expect(menuButton.classList.contains("source-item-more-button")).toBe(true);
+    expect(menuButton.classList.contains("source-stretched-button")).toBe(false);
+  });
+
+  it("does not treat generic NotebookLM filter menu triggers as source row menus", () => {
+    document.body.innerHTML = `
+      <div class="source-entry">
+        <button class="source-stretched-button" aria-label="Alpha title"></button>
+        <button class="corpus-select mat-mdc-menu-trigger" aria-haspopup="menu">Web</button>
+        <input type="checkbox" class="mdc-checkbox__native-control mdc-checkbox--selected" aria-label="Alpha title" checked>
+      </div>
+    `;
+
+    expect(findRowMenuButton(document.querySelector(".source-entry"))).toBeNull();
+  });
+
+  it("ignores extension-owned buttons when finding NotebookLM menu items", () => {
+    document.body.innerHTML = `
+      <section id="nlmbd-toolbar">
+        <button>Delete</button>
+      </section>
+      <div role="menu">
+        <button>Delete source</button>
+      </div>
+    `;
+
+    expect(findMenuItem(document)?.textContent).toBe("Delete source");
+  });
+
+  it("prefers the real NotebookLM remove-source menu item class", () => {
+    document.body.innerHTML = `
+      <div role="menu">
+        <button role="menuitem" class="mat-mdc-menu-item more-menu-button more-menu-edit-source-button">edit Rename source</button>
+        <button role="menuitem" class="mat-mdc-menu-item more-menu-button more-menu-delete-source-button">delete Remove source</button>
+      </div>
+    `;
+
+    expect(findMenuItem(document)?.classList.contains("more-menu-delete-source-button")).toBe(true);
   });
 
   it("has an importable harness", () => {

@@ -25,9 +25,14 @@ export const SOURCE_SELECTORS = {
     "li"
   ],
   menuButtonCandidates: [
-    "button[aria-label*='More' i]",
-    "button[aria-label*='menu' i]",
-    "button[aria-haspopup='menu']"
+    "button.source-item-more-button[aria-label='More']",
+    "button.source-item-more-button",
+    "button[aria-label='More'].mat-mdc-menu-trigger",
+    "button[aria-label*='More options' i]"
+  ],
+  deleteMenuItemCandidates: [
+    "button.more-menu-delete-source-button",
+    "[role='menuitem'].more-menu-delete-source-button"
   ],
   deleteLabels: ["Delete", "Remove"],
   confirmLabels: ["Delete", "Remove", "Confirm"]

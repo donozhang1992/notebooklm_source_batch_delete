@@ -87,7 +87,26 @@ export function showSummary(result = {}) {
   const skipped = result.skipped?.length ?? 0;
   summary.textContent = `Deleted: ${deleted}. Failed: ${failed}. Skipped: ${skipped}.`;
   const close = createButton("Close", () => dialog.overlay.remove());
-  dialog.panel.append(summary, close);
+
+  if (failed > 0) {
+    const failureList = document.createElement("ul");
+    failureList.className = "nlmbd-failure-list";
+    for (const item of result.failed.slice(0, 8)) {
+      const li = document.createElement("li");
+      const stage = item.stage ? `${item.stage}: ` : "";
+      li.textContent = `${item.title || "Untitled source"} - ${stage}${item.message || "Unknown failure"}`;
+      failureList.append(li);
+    }
+    if (failed > failureList.children.length) {
+      const li = document.createElement("li");
+      li.textContent = `${failed - failureList.children.length} more failed source(s).`;
+      failureList.append(li);
+    }
+    dialog.panel.append(summary, failureList, close);
+  } else {
+    dialog.panel.append(summary, close);
+  }
+
   document.body.append(dialog.overlay);
 }
 
@@ -109,7 +128,7 @@ function createButton(label, onClick, danger = false, title = label) {
 function createVersionBadge() {
   const badge = document.createElement("span");
   badge.className = "nlmbd-version";
-  badge.textContent = "v0.1.7";
+  badge.textContent = "v0.1.1";
   badge.title = "NotebookLM bulk delete extension build marker";
   return badge;
 }

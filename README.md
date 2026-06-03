@@ -46,7 +46,15 @@ The extension adds a compact toolbar under `Add sources`: `All` selects visible 
 
 This is an early MVP for personal use and testing. It has been validated on a real NotebookLM notebook, but NotebookLM may change its DOM. Re-test after NotebookLM UI updates.
 
-## Install Locally
+## Install
+
+Install the public extension from the Chrome Web Store:
+
+[NotebookLM Source Bulk Delete](https://chromewebstore.google.com/detail/notebooklm-source-bulk-de/limijmplbgpelnffnbjnfaidlppcodgk)
+
+The Chrome extension also works in Microsoft Edge because Edge supports Chrome Web Store extensions.
+
+## Install Locally For Development
 
 Clone the repo and build the extension:
 
