@@ -2,6 +2,8 @@
 
 NotebookLM Source Bulk Delete is designed to run locally in your browser.
 
+For a browser-friendly version suitable for extension store listings, see [docs/privacy.html](./docs/privacy.html).
+
 ## Data Collection
 
 The extension does not collect, transmit, sell, or share user data.
@@ -35,4 +37,3 @@ The extension exposes `window.nlmbdDebug()` on NotebookLM pages for troubleshoot
 ## Changes
 
 If this privacy behavior changes in a future version, the README and this policy should be updated before release.
-

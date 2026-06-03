@@ -1,26 +1,45 @@
 # NotebookLM Source Bulk Delete
 
-A lightweight Chrome/Edge extension for deleting multiple sources from the current Google NotebookLM notebook.
+Clean up NotebookLM sources in batches instead of deleting them one by one.
 
-This is a local-first MVP. It uses page automation against the NotebookLM web UI instead of private NotebookLM APIs.
+[Install from the Chrome Web Store](https://chromewebstore.google.com/detail/notebooklm-source-bulk-de/limijmplbgpelnffnbjnfaidlppcodgk)
 
 > Not affiliated with, endorsed by, or sponsored by Google or NotebookLM.
 
-## The Problem
+## Why This Exists
 
-NotebookLM makes it very easy to add a lot of sources quickly. A web search, Fast Research run, Deep Research run, or bulk import session can leave a notebook with dozens of pages, PDFs, transcripts, images, and notes.
+NotebookLM makes research intake fast. A web search, Fast Research run, Deep Research run, or bulk import can fill a notebook with dozens of web pages, PDFs, transcripts, images, and notes in minutes.
 
-That is useful while exploring, but painful after you have extracted what you need. You might summarize, compress, or synthesize those raw sources into a cleaner note, then want to remove the original imported sources. NotebookLM still makes that cleanup mostly one source at a time: open the source menu, delete, confirm, wait, repeat.
+That is great while exploring. The painful part comes later.
 
-This extension adds a small toolbar for selecting and deleting multiple visible sources with confirmation and progress tracking.
+After you synthesize the material into cleaner notes, briefs, summaries, or reports, many of those raw sources are no longer needed in the notebook. Today, cleanup is mostly manual: open a source menu, choose delete, confirm, wait, and repeat for every source.
 
-## Demo
+This extension removes that repetitive cleanup loop.
 
-### Toolbar
+## What It Does
 
-The extension adds a compact toolbar under `Add sources`: `All` selects visible sources, `Clear` clears selected sources, and `Delete` starts the confirmed batch-delete flow.
+NotebookLM Source Bulk Delete adds a compact toolbar to the NotebookLM source panel:
 
 ![NotebookLM Source Bulk Delete toolbar](./docs/assets/topbar.png)
+
+- `All` selects visible sources.
+- `Clear` clears the current source selection.
+- `Delete` shows a confirmation list, then removes selected sources one by one through the NotebookLM UI.
+
+Original Google Drive files are not deleted. The extension only removes sources from the current NotebookLM notebook.
+
+## How It Helps
+
+Use it when you:
+
+- Imported many web results and only need the final synthesized answer.
+- Ran a research workflow that added more sources than you want to keep.
+- Want to reset a notebook after compressing source material into notes.
+- Need to clean up experimental or duplicate sources without repeating the same menu flow dozens of times.
+
+The goal is simple: keep NotebookLM useful for fast research intake without making cleanup feel like administrative work.
+
+## Demo
 
 ### Before: one-by-one cleanup
 
@@ -30,21 +49,17 @@ The extension adds a compact toolbar under `Add sources`: `All` selects visible 
 
 ![Batch delete flow](./docs/assets/after.gif)
 
-## Features
+## How To Use
 
-- Runs only on `https://notebooklm.google.com/*`.
-- Adds a compact `All / Clear / Delete` toolbar to the NotebookLM source panel.
-- Reuses NotebookLM's native source checkboxes.
-- Deletes selected sources sequentially through the NotebookLM UI.
-- Shows a confirmation list before deleting.
-- Shows progress, cancellation, and final summary.
-- Does not collect telemetry.
-- Does not upload source names or contents.
-- Does not store Google account cookies.
+Use a disposable test notebook first, especially after NotebookLM UI updates.
 
-## Current Status
-
-This is an early MVP for personal use and testing. It has been validated on a real NotebookLM notebook, but NotebookLM may change its DOM. Re-test after NotebookLM UI updates.
+1. Open a NotebookLM notebook.
+2. Select sources manually, or click `All` to select visible sources.
+3. Click `Clear` if you want to reset the selection.
+4. Click `Delete`.
+5. Review the confirmation list.
+6. Confirm deletion.
+7. Wait for the final summary.
 
 ## Install
 
@@ -54,12 +69,45 @@ Install the public extension from the Chrome Web Store:
 
 The Chrome extension also works in Microsoft Edge because Edge supports Chrome Web Store extensions.
 
-## Install Locally For Development
+## Privacy
 
-Clone the repo and build the extension:
+The extension is local-first:
+
+- It runs only on `https://notebooklm.google.com/*`.
+- It does not collect analytics or telemetry.
+- It does not upload NotebookLM source names or contents.
+- It does not store Google account cookies.
+- It does not contact any server controlled by this project.
+
+See the full [Privacy Policy](./docs/privacy.html).
+
+## Limitations
+
+This extension automates the visible NotebookLM web UI. NotebookLM may change its page structure, which can temporarily break selection or deletion. If that happens, please open an issue with the extension version and what you saw.
+
+## Troubleshooting
+
+If the toolbar does not appear, refresh the NotebookLM notebook page or reload the extension.
+
+If selection or deletion stops working after a NotebookLM UI update, open DevTools on the NotebookLM page and run:
+
+```js
+window.nlmbdDebug()
+```
+
+The debug output only inspects the current page DOM. It does not send data anywhere.
+
+## Local Development
+
+Install dependencies:
 
 ```bash
 npm install
+```
+
+Build the extension:
+
+```bash
 npm run build
 ```
 
@@ -72,75 +120,17 @@ Load it as an unpacked extension:
 5. Select the `extension` folder.
 6. Open a NotebookLM notebook.
 
-The toolbar should appear under `Add sources` in the source panel.
-
-## Usage
-
-Use a disposable test notebook first.
-
-1. Open a NotebookLM notebook.
-2. Click `All` to select visible sources, or select sources manually.
-3. Click `Clear` to clear selected sources.
-4. Click `Delete` to delete selected sources.
-5. Review the confirmation list.
-6. Confirm deletion.
-7. Wait for the summary.
-
-Original Google Drive files are not deleted. Sources are removed from the current NotebookLM notebook.
-
-## Troubleshooting
-
-If the toolbar does not appear:
-
-1. Run `npm run build`.
-2. Reload the unpacked extension.
-3. Refresh the NotebookLM notebook page.
-
-If selection or deletion stops working after a NotebookLM UI update, open DevTools on the NotebookLM page and run:
-
-```js
-window.nlmbdDebug()
-```
-
-The debug output only inspects the current page DOM. It does not send data anywhere.
-
-## Development
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Run unit tests:
-
-```bash
-npm test
-```
-
-Run fixture E2E tests. This builds the content script first:
-
-```bash
-npm run test:e2e
-```
-
-Run all tests:
+Run tests:
 
 ```bash
 npm run test:all
 ```
 
-Build the extension content bundle:
+Create a release zip:
 
 ```bash
-npm run build
+npm run package:extension
 ```
-
-## Privacy
-
-See [PRIVACY.md](./PRIVACY.md).
-
-Short version: the extension runs locally in your browser, does not send analytics, does not upload NotebookLM data, and does not store Google cookies.
 
 ## Project Documents
 

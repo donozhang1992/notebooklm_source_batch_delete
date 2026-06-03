@@ -12,7 +12,11 @@ Bulk delete selected sources from the current NotebookLM notebook.
 
 ## Detailed Description
 
-NotebookLM makes it easy to add many sources through web search, research workflows, and bulk imports, but cleaning up those sources later can be slow. NotebookLM Source Bulk Delete adds a small local toolbar to the source panel so you can select sources, review them, and delete them in one confirmed batch.
+NotebookLM makes research intake fast. A web search, Fast Research run, Deep Research run, or bulk import can quickly fill a notebook with many web pages, PDFs, transcripts, images, and notes.
+
+That is useful while exploring, but cleanup can become repetitive after you synthesize the material into a final note, brief, report, or summary. Removing raw or duplicate sources usually means opening each source menu, choosing delete, confirming, waiting, and repeating the same flow again.
+
+NotebookLM Source Bulk Delete adds a compact local toolbar to the NotebookLM source panel so you can select sources, review them, and remove them in one confirmed batch.
 
 Features:
 
@@ -27,6 +31,48 @@ Features:
 This extension removes sources from the current NotebookLM notebook. It does not delete original Google Drive files.
 
 This project is not affiliated with, endorsed by, or sponsored by Google or NotebookLM.
+
+## Chrome Web Store Description
+
+NotebookLM is great at helping you gather sources quickly. A single web search, Fast Research run, Deep Research run, or bulk import can leave a notebook full of useful raw material.
+
+The problem comes after the research is done. Once you have turned those sources into a cleaner note, brief, summary, or report, cleaning up the original sources can become slow and repetitive. NotebookLM usually makes you delete sources one at a time: open the menu, choose delete, confirm, wait, and repeat.
+
+NotebookLM Source Bulk Delete adds a small toolbar to the source panel so you can select multiple visible sources, review them, and delete them in one confirmed batch.
+
+How it works:
+
+- Use All to select visible sources.
+- Use Clear to reset your selection.
+- Use Delete to review selected sources and remove them from the current notebook.
+- Follow progress and see a final summary.
+
+Why it helps:
+
+- Clean up research-heavy notebooks faster.
+- Remove duplicate or temporary sources after synthesis.
+- Keep NotebookLM notebooks focused on the sources you still need.
+- Spend less time repeating source-menu actions.
+
+The extension runs locally in your browser, only on NotebookLM pages. It does not collect analytics, upload NotebookLM source names or contents, store Google account cookies, or contact any server controlled by this project.
+
+Original Google Drive files are not deleted. Sources are only removed from the current NotebookLM notebook.
+
+This project is not affiliated with, endorsed by, or sponsored by Google or NotebookLM.
+
+## Privacy Policy URL
+
+If GitHub Pages is enabled for the `docs` folder, use:
+
+```text
+https://donozhang1992.github.io/notebooklm_source_batch_delete/privacy.html
+```
+
+Repository copy:
+
+```text
+https://github.com/donozhang1992/notebooklm_source_batch_delete/blob/codex/store-package/docs/privacy.html
+```
 
 ## Category
 
