@@ -89,6 +89,14 @@
   color: #e8eaed;
 }
 
+.nlmbd-failure-list {
+  max-height: 220px;
+  overflow: auto;
+  padding-inline-start: 20px;
+  color: var(--nlmbd-muted);
+  font-size: 13px;
+}
+
 .nlmbd-actions {
   display: flex;
   justify-content: flex-end;

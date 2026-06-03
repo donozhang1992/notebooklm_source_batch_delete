@@ -44,15 +44,21 @@ export function getSourceTitle(row) {
 }
 
 export function findRowMenuButton(row) {
-  return findFirstVisible(row, SOURCE_SELECTORS.menuButtonCandidates);
+  return findFirstVisible(row, SOURCE_SELECTORS.menuButtonCandidates, { rejectSourceOpenButton: true });
 }
 
 export function findMenuItem(root = document, labels = SOURCE_SELECTORS.deleteLabels) {
   const openMenus = Array.from(root.querySelectorAll("[role='menu']"));
   for (const menu of openMenus.reverse()) {
+    const deleteMenuItem = findFirstVisible(menu, SOURCE_SELECTORS.deleteMenuItemCandidates);
+    if (deleteMenuItem) return deleteMenuItem;
+
     const menuItem = findButtonByLabels(menu, labels);
     if (menuItem) return menuItem;
   }
+
+  const deleteMenuItem = findFirstVisible(root, SOURCE_SELECTORS.deleteMenuItemCandidates);
+  if (deleteMenuItem) return deleteMenuItem;
 
   return findButtonByLabels(root, labels);
 }
@@ -66,6 +72,7 @@ function findFirstVisible(root, selectors, options = {}) {
     const match = Array.from(root.querySelectorAll(selector)).find((element) => {
       if (!isVisible(element)) return false;
       if (options.rejectInteractive && isInteractiveControl(element)) return false;
+      if (options.rejectSourceOpenButton && isSourceOpenButton(element)) return false;
       return true;
     });
     if (match) return match;
@@ -79,6 +86,7 @@ function findButtonByLabels(root, labels, options = {}) {
   if (options.reverse) candidates.reverse();
   return candidates.find((candidate) => {
     if (!isVisible(candidate)) return false;
+    if (candidate.closest("#nlmbd-toolbar, #nlmbd-dialog")) return false;
     const text = (candidate.textContent || candidate.getAttribute("aria-label") || "").trim().toLowerCase();
     return normalizedLabels.some((label) => text.includes(label));
   }) || null;
@@ -112,6 +120,10 @@ function findPanelByVisibleText(root) {
 
 function isInteractiveControl(element) {
   return element.matches("button, input, select, textarea, [role='button'], [role='checkbox'], [role='menuitem']");
+}
+
+function isSourceOpenButton(element) {
+  return element.matches("button.source-stretched-button, button.source-stretched-button *");
 }
 
 function normalizeText(text = "") {

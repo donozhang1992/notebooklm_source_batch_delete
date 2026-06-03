@@ -72,6 +72,8 @@ async function attemptDelete(row, options) {
 
   const menuButton = findRowMenuButton(row);
   if (!menuButton) throw stagedError("open-menu", "Could not find source menu button");
+  row.scrollIntoView?.({ block: "center", inline: "nearest" });
+  menuButton.scrollIntoView?.({ block: "center", inline: "nearest" });
   click(menuButton);
   await delay(actionDelayMs);
 
